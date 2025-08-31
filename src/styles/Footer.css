@@ -1,0 +1,49 @@
+/* Footer Component Styles */
+.footer {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: var(--space-6) 0 var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.footer-section h4 {
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.footer-section p,
+.footer-section a {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-1);
+  display: block;
+}
+
+.footer-section a:hover {
+  color: var(--text-primary);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.footer-bottom p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
