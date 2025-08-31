@@ -1,4 +1,3 @@
-/* Features Component Styles */
 .features {
   padding: var(--space-6) 0;
   background: var(--bg-secondary);
@@ -39,7 +38,6 @@
   color: var(--text-secondary);
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .features-grid {
     grid-template-columns: 1fr;

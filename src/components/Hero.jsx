@@ -2,15 +2,21 @@ import { useState } from 'react'
 import '../styles/Hero.css'
 
 function Hero() {
-  const [searchType, setSearchType] = useState('rent')
-  const [location, setLocation] = useState('')
-  const [priceRange, setPriceRange] = useState('')
-  const [propertyType, setPropertyType] = useState('')
+  const [searchData, setSearchData] = useState({
+    type: 'rent',
+    location: '',
+    priceRange: '',
+    propertyType: ''
+  })
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setSearchData({ ...searchData, [name]: value })
+  }
 
   const handleSearch = (e) => {
     e.preventDefault()
-    // This would typically handle the search logic
-    console.log('Search submitted:', { searchType, location, priceRange, propertyType })
+    console.log('Search:', searchData)
   }
 
   return (
@@ -19,8 +25,7 @@ function Hero() {
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">
-              Find Your Perfect
-              <span className="accent-text"> Home</span>
+              Find Your Perfect <span className="accent-text">Home</span>
             </h1>
             <p className="hero-subtitle">
               Discover thousands of rental properties perfect for families, students, 
@@ -28,18 +33,17 @@ function Hero() {
             </p>
           </div>
 
-          {/* Search Form */}
           <div className="search-container">
             <div className="search-tabs">
               <button 
-                className={`search-tab ${searchType === 'rent' ? 'active' : ''}`}
-                onClick={() => setSearchType('rent')}
+                className={`search-tab ${searchData.type === 'rent' ? 'active' : ''}`}
+                onClick={() => setSearchData({ ...searchData, type: 'rent' })}
               >
                 For Rent
               </button>
               <button 
-                className={`search-tab ${searchType === 'buy' ? 'active' : ''}`}
-                onClick={() => setSearchType('buy')}
+                className={`search-tab ${searchData.type === 'buy' ? 'active' : ''}`}
+                onClick={() => setSearchData({ ...searchData, type: 'buy' })}
               >
                 For Sale
               </button>
@@ -51,19 +55,21 @@ function Hero() {
                   <label htmlFor="location">Location</label>
                   <input
                     id="location"
+                    name="location"
                     type="text"
-                    placeholder="Enter city, neighborhood, or address"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Enter city or address"
+                    value={searchData.location}
+                    onChange={handleInputChange}
                   />
                 </div>
 
                 <div className="search-field">
-                  <label htmlFor="property-type">Property Type</label>
+                  <label htmlFor="propertyType">Property Type</label>
                   <select
-                    id="property-type"
-                    value={propertyType}
-                    onChange={(e) => setPropertyType(e.target.value)}
+                    id="propertyType"
+                    name="propertyType"
+                    value={searchData.propertyType}
+                    onChange={handleInputChange}
                   >
                     <option value="">All Types</option>
                     <option value="apartment">Apartment</option>
@@ -74,11 +80,12 @@ function Hero() {
                 </div>
 
                 <div className="search-field">
-                  <label htmlFor="price-range">Price Range</label>
+                  <label htmlFor="priceRange">Price Range</label>
                   <select
-                    id="price-range"
-                    value={priceRange}
-                    onChange={(e) => setPriceRange(e.target.value)}
+                    id="priceRange"
+                    name="priceRange"
+                    value={searchData.priceRange}
+                    onChange={handleInputChange}
                   >
                     <option value="">Any Price</option>
                     <option value="0-1000">$0 - $1,000</option>

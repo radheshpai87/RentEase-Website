@@ -1,4 +1,3 @@
-/* Stats Component Styles */
 .stats {
   padding: var(--space-6) 0;
   background: var(--bg-primary);
@@ -26,7 +25,6 @@
   font-weight: 500;
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
