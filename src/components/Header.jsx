@@ -6,12 +6,12 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
 
-  const handleSignIn = () => {
+  const goToLogin = () => {
     navigate('/login')
     setMobileMenuOpen(false)
   }
 
-  const handleSignUp = () => {
+  const goToSignUp = () => {
     navigate('/signup')
     setMobileMenuOpen(false)
   }
@@ -26,19 +26,17 @@ function Header() {
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
           <nav className="nav-links desktop-nav">
             <a href="#properties" className="nav-link">Properties</a>
             <a href="#about" className="nav-link">About</a>
             <a href="#contact" className="nav-link">Contact</a>
             <a href="#help" className="nav-link">Help</a>
             <div className="nav-buttons">
-              <button className="btn-secondary" onClick={handleSignIn}>Sign In</button>
-              <button className="btn-primary" onClick={handleSignUp}>Sign Up</button>
+              <button className="btn-secondary" onClick={goToLogin}>Sign In</button>
+              <button className="btn-primary" onClick={goToSignUp}>Sign Up</button>
             </div>
           </nav>
 
-          {/* Mobile Menu Button */}
           <button 
             className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -49,15 +47,14 @@ function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         <div className={`mobile-nav ${mobileMenuOpen ? 'mobile-nav-open' : ''}`}>
           <a href="#properties" className="mobile-nav-link">Properties</a>
           <a href="#about" className="mobile-nav-link">About</a>
           <a href="#contact" className="mobile-nav-link">Contact</a>
           <a href="#help" className="mobile-nav-link">Help</a>
           <div className="mobile-nav-buttons">
-            <button className="btn-secondary" onClick={handleSignIn}>Sign In</button>
-            <button className="btn-primary" onClick={handleSignUp}>Sign Up</button>
+            <button className="btn-secondary" onClick={goToLogin}>Sign In</button>
+            <button className="btn-primary" onClick={goToSignUp}>Sign Up</button>
           </div>
         </div>
       </div>

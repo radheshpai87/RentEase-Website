@@ -1,17 +1,14 @@
-/* Global App Styles */
 .app {
   min-height: 100vh;
   background: var(--bg-primary);
 }
 
-/* Container - Shared across components */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-2);
 }
 
-/* Desktop Navigation */
 .desktop-nav {
   display: flex;
   align-items: center;
@@ -43,7 +40,6 @@
   gap: var(--space-2);
 }
 
-/* Mobile Menu Button */
 .mobile-menu-btn {
   display: none;
   flex-direction: column;
@@ -68,7 +64,6 @@
   background: var(--warm-accent);
 }
 
-/* Mobile Navigation */
 .mobile-nav {
   display: none;
   position: absolute;
@@ -116,7 +111,6 @@
   width: 100%;
 }
 
-/* Hero Section */
 .hero {
   background: 
     linear-gradient(rgba(15, 20, 25, 0.8), rgba(15, 20, 25, 0.8)),
@@ -157,7 +151,6 @@
   margin-bottom: var(--space-4);
 }
 
-/* Search Container */
 .search-container {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -230,7 +223,6 @@
 }
 
 
-/* Features Section */
 .features {
   padding: var(--space-6) 0;
   background: var(--bg-secondary);
@@ -271,7 +263,6 @@
   color: var(--text-secondary);
 }
 
-/* Stats Section */
 .stats {
   padding: var(--space-6) 0;
   background: var(--bg-primary);
@@ -299,7 +290,6 @@
   font-weight: 500;
 }
 
-/* CTA Section */
 .cta {
   padding: var(--space-6) 0;
   background: linear-gradient(135deg, var(--warm-accent) 0%, #d97706 100%);
@@ -343,7 +333,6 @@
   color: var(--warm-accent);
 }
 
-/* Footer */
 .footer {
   background: var(--bg-secondary);
   color: var(--text-primary);
