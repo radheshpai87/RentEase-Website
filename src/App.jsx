@@ -6,9 +6,9 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 
 // Import pages
-import Landing from './pages/Landing'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
+import Landing from './components/pages/Landing'
+import Login from './components/pages/Login'
+import SignUp from './components/pages/SignUp'
 
 function AppContent() {
   const location = useLocation()

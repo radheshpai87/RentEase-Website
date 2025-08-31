@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import '../styles/Auth.css'
+import Notification from '../Notification'
+import '../../styles/Auth.css'
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -14,7 +15,24 @@ function SignUp() {
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+  const [notification, setNotification] = useState({
+    isVisible: false,
+    message: '',
+    type: 'success'
+  })
   const navigate = useNavigate()
+
+  const showNotification = (message, type = 'success') => {
+    setNotification({
+      isVisible: true,
+      message,
+      type
+    })
+  }
+
+  const hideNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }))
+  }
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -82,19 +100,59 @@ function SignUp() {
     setErrors({})
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      console.log('Sign up data:', formData)
-      // Redirect to login page after successful signup
-      navigate('/login', { 
-        state: { 
-          message: 'Account created successfully! Please sign in.',
-          email: formData.email 
-        }
+      // Make actual API call to backend
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phoneNumber: formData.phoneNumber,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword
+        })
       })
+
+      const data = await response.json()
+
+      if (data.success) {
+        console.log('User created successfully:', data.user)
+        showNotification('🎉 Account created successfully! Welcome to RentEase!', 'success')
+        
+        // Wait a moment for user to see the notification, then redirect
+        setTimeout(() => {
+          navigate('/login', { 
+            state: { 
+              message: 'Account created successfully! Please sign in.',
+              email: formData.email 
+            }
+          })
+        }, 2000)
+      } else {
+        // Handle validation errors from backend
+        if (data.errors) {
+          const backendErrors = {}
+          data.errors.forEach(error => {
+            // Map backend error messages to form fields
+            if (error.includes('email')) backendErrors.email = error
+            else if (error.includes('password')) backendErrors.password = error
+            else if (error.includes('phone')) backendErrors.phoneNumber = error
+            else backendErrors.submit = error
+          })
+          setErrors(backendErrors)
+        } else {
+          setErrors({ submit: data.message || 'Registration failed. Please try again.' })
+          showNotification(data.message || 'Registration failed. Please try again.', 'error')
+        }
+      }
     } catch (error) {
-      setErrors({ submit: 'Something went wrong. Please try again.' })
+      console.error('Signup error:', error)
+      const errorMessage = 'Unable to connect to server. Please check your connection.'
+      setErrors({ submit: errorMessage })
+      showNotification(errorMessage, 'error')
     } finally {
       setIsLoading(false)
     }
@@ -266,6 +324,13 @@ function SignUp() {
           </div>
         </div>
       </div>
+      
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={hideNotification}
+      />
     </div>
   )
 }

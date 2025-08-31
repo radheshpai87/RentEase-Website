@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import '../styles/Auth.css'
+import Notification from '../Notification'
+import '../../styles/Auth.css'
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -10,8 +11,25 @@ function Login() {
   })
   const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [notification, setNotification] = useState({
+    isVisible: false,
+    message: '',
+    type: 'success'
+  })
   const location = useLocation()
   const navigate = useNavigate()
+
+  const showNotification = (message, type = 'success') => {
+    setNotification({
+      isVisible: true,
+      message,
+      type
+    })
+  }
+
+  const hideNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }))
+  }
 
   useEffect(() => {
     // Check if there's a success message from signup
@@ -36,14 +54,41 @@ function Login() {
     setIsLoading(true)
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      console.log('Login data:', formData)
-      // Redirect to home page after successful login
-      navigate('/')
+      // Make actual API call to backend
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          rememberMe: formData.rememberMe
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        console.log('Login successful:', data.user)
+        
+        // Store the JWT token (you can use localStorage or a state management solution)
+        localStorage.setItem('authToken', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
+        
+        showNotification(`🎉 Welcome back, ${data.user.firstName}!`, 'success')
+        
+        // Wait a moment for user to see the notification, then redirect
+        setTimeout(() => {
+          navigate('/')
+        }, 1500)
+      } else {
+        console.error('Login failed:', data.message)
+        showNotification(data.message || 'Login failed. Please check your credentials.', 'error')
+      }
     } catch (error) {
-      console.error('Login failed:', error)
+      console.error('Login error:', error)
+      showNotification('Unable to connect to server. Please check your connection.', 'error')
     } finally {
       setIsLoading(false)
     }
@@ -147,6 +192,13 @@ function Login() {
           </div>
         </div>
       </div>
+      
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={hideNotification}
+      />
     </div>
   )
 }
