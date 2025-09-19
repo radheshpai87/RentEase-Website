@@ -1,6 +1,17 @@
 .stats {
   padding: var(--space-6) 0;
   background: var(--bg-primary);
+  position: relative;
+}
+
+.stats::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
 }
 
 .stats-grid {
@@ -11,18 +22,53 @@
 
 .stat-item {
   text-align: center;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--bg-card), rgba(36, 52, 71, 0.5));
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.stat-item:hover::before {
+  left: 100%;
+}
+
+.stat-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--warm-accent);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .stat-item h3 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   color: var(--warm-accent);
   margin-bottom: var(--space-1);
   font-weight: 700;
+  letter-spacing: -0.02em;
+  position: relative;
+  z-index: 1;
 }
 
 .stat-item p {
   color: var(--text-secondary);
   font-weight: 500;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.025em;
 }
 
 @media (max-width: 768px) {

@@ -57,7 +57,7 @@ function Hero() {
                     id="location"
                     name="location"
                     type="text"
-                    placeholder="Enter city or address"
+                    placeholder="Enter city (Mumbai, Delhi, Bangalore...)"
                     value={searchData.location}
                     onChange={handleInputChange}
                   />
@@ -88,10 +88,10 @@ function Hero() {
                     onChange={handleInputChange}
                   >
                     <option value="">Any Price</option>
-                    <option value="0-1000">$0 - $1,000</option>
-                    <option value="1000-2000">$1,000 - $2,000</option>
-                    <option value="2000-3000">$2,000 - $3,000</option>
-                    <option value="3000+">$3,000+</option>
+                    <option value="0-25000">₹0 - ₹25,000</option>
+                    <option value="25000-50000">₹25,000 - ₹50,000</option>
+                    <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                    <option value="100000+">₹1,00,000+</option>
                   </select>
                 </div>
 

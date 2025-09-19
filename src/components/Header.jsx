@@ -27,10 +27,10 @@ function Header() {
           </div>
           
           <nav className="nav-links desktop-nav">
-            <a href="#properties" className="nav-link">Properties</a>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#contact" className="nav-link">Contact</a>
-            <a href="#help" className="nav-link">Help</a>
+            <Link to="/properties" className="nav-link">Properties</Link>
+            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
+            <Link to="/help" className="nav-link">Help</Link>
             <div className="nav-buttons">
               <button className="btn-secondary" onClick={goToLogin}>Sign In</button>
               <button className="btn-primary" onClick={goToSignUp}>Sign Up</button>
@@ -48,10 +48,10 @@ function Header() {
         </div>
 
         <div className={`mobile-nav ${mobileMenuOpen ? 'mobile-nav-open' : ''}`}>
-          <a href="#properties" className="mobile-nav-link">Properties</a>
-          <a href="#about" className="mobile-nav-link">About</a>
-          <a href="#contact" className="mobile-nav-link">Contact</a>
-          <a href="#help" className="mobile-nav-link">Help</a>
+          <Link to="/properties" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Properties</Link>
+          <Link to="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>About</Link>
+          <Link to="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+          <Link to="/help" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Help</Link>
           <div className="mobile-nav-buttons">
             <button className="btn-secondary" onClick={goToLogin}>Sign In</button>
             <button className="btn-primary" onClick={goToSignUp}>Sign Up</button>

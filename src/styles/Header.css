@@ -1,11 +1,12 @@
 .header {
-  background: var(--bg-secondary);
+  background: rgba(26, 35, 50, 0.95);
+  backdrop-filter: blur(12px) saturate(180%);
   padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .nav {
@@ -18,8 +19,13 @@
 .logo h2 {
   color: var(--warm-accent);
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
+  background: linear-gradient(135deg, var(--warm-accent) 0%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .logo a {
@@ -48,12 +54,31 @@
   font-weight: 500;
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius);
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--warm-accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::before {
+  width: 80%;
 }
 
 .nav-link:hover {
   color: var(--warm-accent);
   background: rgba(245, 158, 11, 0.1);
+  transform: translateY(-1px);
 }
 
 .nav-buttons {

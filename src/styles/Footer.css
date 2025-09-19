@@ -1,8 +1,19 @@
 .footer {
-  background: var(--bg-secondary);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(15, 20, 25, 0.95) 100%);
   color: var(--text-primary);
   padding: var(--space-6) 0 var(--space-3);
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--warm-accent), transparent);
 }
 
 .footer-content {
@@ -15,6 +26,19 @@
 .footer-section h4 {
   color: var(--text-primary);
   margin-bottom: var(--space-2);
+  font-weight: 600;
+  position: relative;
+}
+
+.footer-section h4::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: var(--warm-accent);
+  border-radius: 1px;
 }
 
 .footer-section p,
@@ -22,21 +46,25 @@
   color: var(--text-secondary);
   margin-bottom: var(--space-1);
   display: block;
+  transition: all 0.3s ease;
+  line-height: 1.6;
 }
 
 .footer-section a:hover {
-  color: var(--text-primary);
+  color: var(--warm-accent);
+  transform: translateX(4px);
 }
 
 .footer-bottom {
   text-align: center;
   padding-top: var(--space-3);
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-bottom p {
   color: var(--text-secondary);
   margin: 0;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
