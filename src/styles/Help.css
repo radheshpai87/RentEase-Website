@@ -60,7 +60,7 @@
 
 .search-input {
   flex: 1;
-  padding: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-lg);
   background: rgba(36, 52, 71, 0.8);
@@ -68,6 +68,9 @@
   color: white;
   font-size: 1rem;
   transition: all 0.3s ease;
+  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .search-input:focus {
@@ -87,7 +90,7 @@
 }
 
 .search-btn {
-  padding: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   background: var(--warm-accent);
   border: none;
   border-radius: var(--radius-lg);
@@ -97,6 +100,11 @@
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
 }
 
 .search-btn:hover {
