@@ -49,19 +49,27 @@ function Login() {
       const data = await response.json()
 
       if (data.success) {
-        localStorage.setItem('authToken', data.token)
+        localStorage.setItem('token', data.token)
         localStorage.setItem('user', JSON.stringify(data.user))
         
         showNotification(`Welcome back, ${data.user.firstName}!`, 'success')
         
+        // Trigger storage event for header to update
+        window.dispatchEvent(new Event('storage'))
+        
         setTimeout(() => {
-          navigate('/')
+          if (data.user.role === 'admin') {
+            navigate('/admin')
+          } else {
+            navigate('/')
+          }
         }, 1500)
       } else {
         showNotification(data.message || 'Login failed', 'error')
       }
-    } catch {
-      showNotification('Connection error', 'error')
+    } catch (error) {
+      console.error('Login error:', error)
+      showNotification('Connection error. Please make sure the server is running.', 'error')
     } finally {
       setIsLoading(false)
     }
@@ -114,6 +122,9 @@ function Login() {
 
           <div className="auth-footer">
             <p>Don't have an account? <Link to="/signup" className="auth-link">Sign up</Link></p>
+            <div className="admin-hint">
+              <p className="info-text">🔑 Admin accounts get redirected to the dashboard automatically</p>
+            </div>
           </div>
         </div>
       </div>

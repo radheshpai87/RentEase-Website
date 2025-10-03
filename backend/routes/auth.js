@@ -10,7 +10,7 @@ const createToken = (userId) => {
 
 router.post('/signup', async (req, res) => {
   try {
-    const { firstName, lastName, email, phoneNumber, password, confirmPassword } = req.body;
+    const { firstName, lastName, email, phoneNumber, password, confirmPassword, role } = req.body;
 
     if (!firstName || !lastName || !email || !phoneNumber || !password) {
       return res.status(400).json({
@@ -46,7 +46,8 @@ router.post('/signup', async (req, res) => {
       lastName,
       email: email.toLowerCase(),
       phoneNumber,
-      password
+      password,
+      role: role || 'user' // Default to 'user' if not specified
     });
 
     await user.save();
@@ -56,13 +57,21 @@ router.post('/signup', async (req, res) => {
       success: true,
       message: 'Account created successfully!',
       token,
-      user
+      user: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role
+      }
     });
 
-  } catch {
+  } catch (error) {
+    console.error('Signup error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: 'Server error: ' + error.message
     });
   }
 });
@@ -100,13 +109,21 @@ router.post('/login', async (req, res) => {
       success: true,
       message: 'Login successful!',
       token,
-      user
+      user: {
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        role: user.role
+      }
     });
 
-  } catch {
+  } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({
       success: false,
-      message: 'Server error'
+      message: 'Server error: ' + error.message
     });
   }
 });

@@ -10,7 +10,8 @@ function SignUp() {
     email: '',
     password: '',
     confirmPassword: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    role: 'user'
   })
   const [isLoading, setIsLoading] = useState(false)
   const [notification, setNotification] = useState({
@@ -66,8 +67,9 @@ function SignUp() {
       } else {
         showNotification(data.message || 'Registration failed', 'error')
       }
-    } catch {
-      showNotification('Connection error', 'error')
+    } catch (error) {
+      console.error('Signup error:', error)
+      showNotification('Connection error. Please make sure the server is running.', 'error')
     } finally {
       setIsLoading(false)
     }
@@ -84,6 +86,9 @@ function SignUp() {
           <div className="auth-header">
             <h1>Create Account</h1>
             <p>Join RentEase today</p>
+            <div className="account-type-info">
+              <p className="info-text">💡 Select "Admin User" to access property management features</p>
+            </div>
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
@@ -138,6 +143,20 @@ function SignUp() {
                 placeholder="Phone number"
                 required
               />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="role">Account Type</label>
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                required
+              >
+                <option value="user">Regular User</option>
+                <option value="admin">Admin User</option>
+              </select>
             </div>
 
             <div className="form-row">
