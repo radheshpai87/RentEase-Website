@@ -2,7 +2,7 @@
 
 A comprehensive real estate platform built with React 19 and Node.js, featuring advanced property management, user authentication, admin dashboard, and modern glassmorphism UI design.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js (v16 or higher)
@@ -47,7 +47,7 @@ npm run server
 npm run dev
 ```
 
-## ✨ Features
+## Features
 
 ### User Features
 - **Modern UI Design** - Glassmorphism design with responsive layouts
@@ -72,7 +72,7 @@ npm run dev
 - **Error Handling** - Comprehensive error handling with user feedback
 - **Loading States** - Smooth loading indicators and timeout protection
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Frontend:**
 - React 19 with Modern Hooks (useState, useEffect, useCallback)
@@ -96,7 +96,7 @@ npm run dev
 - ESLint (code linting)
 - Colored console output for better development experience
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── src/                    # Frontend React application
@@ -161,7 +161,7 @@ npm run dev
 └── README.md             # This file
 ```
 
-## � Available Scripts
+## Available Scripts
 
 - `npm run dev:full` - **Recommended**: Run both frontend and backend with colored output
 - `npm start` - Same as dev:full
@@ -171,7 +171,7 @@ npm run dev
 - `npm run lint` - Run ESLint code analysis
 - `npm run preview` - Preview production build
 
-## 🔐 Environment Configuration
+## Environment Configuration
 
 The backend uses environment variables in `backend/.env`:
 ```env
@@ -183,7 +183,7 @@ NODE_ENV=development
 
 **Important**: Change the JWT_SECRET in production to a strong, random string.
 
-## 📱 Application Pages & Features
+## Application Pages & Features
 
 ### Public Pages
 - **Landing (/)** - Hero section with property showcase and features
@@ -240,7 +240,7 @@ This creates:
 3. Click "Add New Property" to create properties
 4. Categories and locations will be populated from seeded data
 
-## � Development Workflow
+## Development Workflow
 
 The development setup provides:
 - **Automatic server restart** when backend files change (nodemon)
@@ -251,7 +251,7 @@ The development setup provides:
 - **JWT token persistence** in localStorage
 - **Responsive design** that works on all device sizes
 
-## 🎨 UI/UX Features
+## UI/UX Features
 
 - **Modern Glassmorphism Design** - Beautiful frosted glass effects
 - **Responsive Layout** - Mobile-first approach with breakpoints
@@ -262,7 +262,7 @@ The development setup provides:
 - **Form Validation** - Real-time form validation
 - **Dark/Light Theme Support** - CSS variables for easy theming
 
-## 🔒 Security Features
+## Security Features
 
 - **JWT Authentication** - Secure token-based authentication
 - **Password Hashing** - bcryptjs for secure password storage
@@ -271,7 +271,7 @@ The development setup provides:
 - **CORS Configuration** - Secure cross-origin resource sharing
 - **Input Validation** - Server-side validation for all inputs
 
-## � API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/signup` - User registration
@@ -299,26 +299,11 @@ The development setup provides:
 ### Admin
 - `GET /api/admin/dashboard` - Dashboard statistics (Admin only)
 
-## �🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License.
-
-## 🙏 Acknowledgments
-
-- React team for the amazing framework
-- MongoDB team for the database
-- Vite team for the fast build tool
-- All contributors and testers
-
----
-
-**Happy Coding! 🚀**
 
