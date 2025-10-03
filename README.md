@@ -207,7 +207,7 @@ NODE_ENV=development
   - Property status management
   - Search and filter functionality
 
-## 🎯 Getting Started Guide
+## Getting Started Guide
 
 ### 1. Start the Application
 ```bash
