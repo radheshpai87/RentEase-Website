@@ -18,7 +18,31 @@ A comprehensive real estate platform built with React 19 and Node.js, featuring 
    npm install
    ```
 
-2. **Database Setup**
+2. **Environment Setup**
+   Create or modify the `.env` file in the root directory with the following:
+   ```bash
+   # Database
+   MONGODB_URI=mongodb://localhost:27017/rentease
+   
+   # JWT Secret (in production, use a strong random string)
+   JWT_SECRET=your-super-secret-jwt-key-change-in-production
+   
+   # Server Port
+   PORT=5000
+   
+   # Cloudinary Configuration
+   # Sign up at cloudinary.com and get these values from your dashboard
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
+
+3. **Cloudinary Setup**
+   - Sign up for a free account at [Cloudinary](https://cloudinary.com/)
+   - Go to your Dashboard and copy your Cloud name, API Key, and API Secret
+   - Update these values in your `.env` file
+
+4. **Database Setup**
    ```bash
    # Make sure MongoDB is running, then seed the database
    cd backend
@@ -26,7 +50,7 @@ A comprehensive real estate platform built with React 19 and Node.js, featuring 
    ```
    This will create sample categories (Residential, Commercial, Industrial, Agricultural) and locations.
 
-3. **Start Development Servers**
+5. **Start Development Servers**
    ```bash
    # Run both frontend and backend together (Recommended)
    npm run dev:full
@@ -89,6 +113,7 @@ npm run dev
 - bcryptjs for secure password hashing
 - CORS enabled for cross-origin requests
 - Multer for file upload handling
+- Cloudinary for image storage and optimization
 
 **Development Tools:**
 - Concurrently (run multiple servers)

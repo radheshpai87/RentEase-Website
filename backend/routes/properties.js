@@ -4,6 +4,15 @@ import Location from '../models/Location.js';
 import Category from '../models/Category.js';
 import SavedProperty from '../models/SavedProperty.js';
 import { authenticate, authorize, optionalAuth } from '../middleware/auth.js';
+import cloudinary from '../config/cloudinary.js';
+import multer from 'multer';
+
+// Configure multer for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ 
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB file size limit
+});
 
 const router = express.Router();
 
@@ -157,6 +166,92 @@ router.get('/:id', optionalAuth, async (req, res) => {
     res.json(propertyWithSavedStatus);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+// Upload property images
+router.post('/upload-image', authenticate, authorize('admin'), upload.single('image'), async (req, res) => {
+  try {
+    console.log('Image upload request received');
+    
+    if (!req.file) {
+      console.error('No file in request');
+      return res.status(400).json({ message: 'No image provided' });
+    }
+    
+    console.log('File received:', {
+      mimetype: req.file.mimetype,
+      size: req.file.size,
+      filename: req.file.originalname
+    });
+    
+    try {
+      // Improved approach for Cloudinary upload:
+      // We'll use the streamifier approach as it's more reliable than data URIs
+      // for handling larger images
+      
+      // Import streamifier dynamically to avoid requiring it in other parts of the app
+      // This creates a readable stream from the buffer
+      const streamifier = (await import('streamifier')).default;
+      
+      // Create a promise to handle the Cloudinary stream upload
+      const uploadPromise = new Promise((resolve, reject) => {
+        // Create a Cloudinary upload stream
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: 'real-estate/properties',
+            resource_type: 'auto', // auto-detect resource type
+            timeout: 60000, // 60 second timeout
+          },
+          (error, result) => {
+            if (error) {
+              console.error('Cloudinary stream upload error:', error);
+              reject(error);
+            } else {
+              console.log('Cloudinary stream upload success:', result.secure_url);
+              resolve(result);
+            }
+          }
+        );
+        
+        // Pipe the buffer stream to the Cloudinary upload stream
+        streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+      });
+      
+      // Wait for the upload to complete
+      const result = await uploadPromise;
+      
+      // Send the successful response
+      res.status(201).json({ 
+        url: result.secure_url,
+        public_id: result.public_id
+      });
+      
+    } catch (cloudinaryError) {
+      console.error('Cloudinary specific error:', cloudinaryError);
+      // Log more details about the error
+      if (cloudinaryError.http_code) {
+        console.error(`HTTP Code: ${cloudinaryError.http_code}`);
+      }
+      if (cloudinaryError.error) {
+        console.error(`Error details: ${JSON.stringify(cloudinaryError.error)}`);
+      }
+      
+      res.status(500).json({ 
+        message: 'Error uploading to Cloudinary', 
+        error: cloudinaryError.message || 'Unknown Cloudinary error',
+        details: typeof cloudinaryError === 'object' 
+          ? JSON.stringify(cloudinaryError) 
+          : cloudinaryError.toString()
+      });
+    }
+  } catch (error) {
+    console.error('Error in upload route:', error);
+    res.status(500).json({ 
+      message: 'Server error during upload', 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 });
 
