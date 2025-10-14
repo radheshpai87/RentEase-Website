@@ -20,6 +20,8 @@ export const authenticate = async (req, res, next) => {
       return res.status(401).json({ message: 'Invalid token.' });
     }
 
+    // Store token for tracking
+    req.token = token;
     req.user = user;
     next();
   } catch {

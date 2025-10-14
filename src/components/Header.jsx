@@ -1,32 +1,47 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Header.css'
+import { checkAuthValidity, clearAuth } from '../utils/auth.js'
+import Notification from './Notification'
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [user, setUser] = useState(null)
+  const [notification, setNotification] = useState({ message: '', type: 'info', isVisible: false })
   const navigate = useNavigate()
 
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('token')
-      const userStr = localStorage.getItem('user')
+    const checkAuth = async () => {
+      const authResult = await checkAuthValidity()
       
-      if (token && userStr) {
-        try {
-          const userData = JSON.parse(userStr)
-          setUser(userData)
-        } catch {
-          localStorage.removeItem('token')
-          localStorage.removeItem('user')
+      if (authResult.isAuthenticated) {
+        setUser(authResult.user)
+      } else {
+        setUser(null)
+        
+        // Show message if server restarted
+        if (authResult.serverRestarted && authResult.message) {
+          setNotification({
+            message: authResult.message,
+            type: 'warning',
+            isVisible: true
+          })
         }
       }
     }
 
     checkAuth()
+    
+    // Check auth periodically to detect server restarts
+    const interval = setInterval(checkAuth, 30000) // Check every 30 seconds
+    
     // Listen for auth changes
     window.addEventListener('storage', checkAuth)
-    return () => window.removeEventListener('storage', checkAuth)
+    
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('storage', checkAuth)
+    }
   }, [])
 
   const goToLogin = () => {
@@ -39,23 +54,47 @@ function Header() {
     setMobileMenuOpen(false)
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+  const handleLogout = async () => {
+    const token = localStorage.getItem('token')
+    
+    // Call logout endpoint to blacklist token on server
+    if (token) {
+      try {
+        await fetch('http://localhost:5000/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
+      } catch (error) {
+        console.error('Logout request failed:', error)
+        // Continue with local logout even if server request fails
+      }
+    }
+    
+    clearAuth()
     setUser(null)
     setMobileMenuOpen(false)
     navigate('/')
   }
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="nav">
-          <div className="logo">
-            <Link to="/">
-              <h2>🏠 RentEase</h2>
-            </Link>
-          </div>
+    <>
+      <Notification 
+        message={notification.message}
+        type={notification.type}
+        isVisible={notification.isVisible}
+        onClose={() => setNotification(prev => ({ ...prev, isVisible: false }))}
+      />
+      <header className="header">
+        <div className="container">
+          <div className="nav">
+            <div className="logo">
+              <Link to="/">
+                <h2>🏠 RentEase</h2>
+              </Link>
+            </div>
           
           <nav className="nav-links desktop-nav">
             <Link to="/properties" className="nav-link">Properties</Link>
@@ -114,6 +153,7 @@ function Header() {
         </div>
       </div>
     </header>
+    </>
   )
 }
 

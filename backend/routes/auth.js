@@ -1,6 +1,8 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import { addValidToken, blacklistToken } from '../server.js';
+import { authenticate } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -52,6 +54,9 @@ router.post('/signup', async (req, res) => {
 
     await user.save();
     const token = createToken(user._id);
+    
+    // Track the token as valid
+    addValidToken(token);
 
     res.status(201).json({
       success: true,
@@ -104,6 +109,9 @@ router.post('/login', async (req, res) => {
     }
 
     const token = createToken(user._id);
+    
+    // Track the token as valid
+    addValidToken(token);
 
     res.json({
       success: true,
@@ -124,6 +132,28 @@ router.post('/login', async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Server error: ' + error.message
+    });
+  }
+});
+
+// Logout endpoint to blacklist the current token
+router.post('/logout', authenticate, (req, res) => {
+  try {
+    const token = req.token;
+    
+    if (token) {
+      blacklistToken(token);
+    }
+    
+    res.json({
+      success: true,
+      message: 'Logged out successfully'
+    });
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error during logout'
     });
   }
 });
