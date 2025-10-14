@@ -26,8 +26,6 @@ cloudinary.config({
 // Log that Cloudinary is configured (but don't log sensitive values)
 console.log('Cloudinary configured with:');
 console.log('- Cloud name: dignxiehl');
-console.log('- API Key: [REDACTED]');
-console.log('- API Secret: [REDACTED]');
 console.log('- Environment CLOUDINARY_URL present:', !!process.env.CLOUDINARY_URL);
 
 export default cloudinary;
