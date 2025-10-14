@@ -78,12 +78,12 @@ function SignUp() {
   return (
     <div className="auth-container">
       <div className="auth-background"></div>
-      <div className="auth-content">
+      <div className="auth-content signup-content">
         <div className="auth-form-container">
           <div className="auth-back">
             <Link to="/" className="auth-back-link">← Back to Home</Link>
           </div>
-          <div className="auth-header">
+          <div className="auth-header signup-header">
             <h1>Create Account</h1>
             <p>Join RentEase today</p>
             <div className="account-type-info">
@@ -91,7 +91,8 @@ function SignUp() {
             </div>
           </div>
 
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form signup-form" onSubmit={handleSubmit}>
+            {/* Row 1: First Name, Last Name */}
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
@@ -119,46 +120,35 @@ function SignUp() {
               </div>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email address"
-                required
-              />
+            {/* Row 2: Email, Phone Number */}
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email address"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder="Phone number"
+                  required
+                />
+              </div>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="phoneNumber">Phone Number</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                placeholder="Phone number"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="role">Account Type</label>
-              <select
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-              >
-                <option value="user">Regular User</option>
-                <option value="admin">Admin User</option>
-              </select>
-            </div>
-
+            {/* Row 3: Password, Confirm Password */}
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="password">Password</label>
@@ -184,6 +174,21 @@ function SignUp() {
                   required
                 />
               </div>
+            </div>
+
+            {/* Row 4: Account Type - Centered */}
+            <div className="form-group account-type-group">
+              <label htmlFor="role">Account Type</label>
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                required
+              >
+                <option value="user">Regular User</option>
+                <option value="admin">Admin User</option>
+              </select>
             </div>
 
             <button type="submit" className="btn-primary auth-btn" disabled={isLoading}>

@@ -77,9 +77,14 @@
 
 .auth-content {
   width: 100%;
-  max-width: 500px;
+  max-width: 500px; /* Default width for login */
   position: relative;
   z-index: 1;
+}
+
+/* Wider content for signup page */
+.auth-content.signup-content {
+  max-width: 800px;
 }
 
 .auth-form-container {
@@ -92,11 +97,16 @@
     0 25px 50px rgba(0, 0, 0, 0.4),
     0 0 100px rgba(245, 158, 11, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  max-width: 450px;
+  max-width: 450px; /* Default width for login */
   width: 100%;
   position: relative;
   z-index: 10;
   animation: formSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Wider form container for signup page */
+.auth-content.signup-content .auth-form-container {
+  max-width: 750px;
 }
 
 @keyframes formSlideIn {
@@ -199,6 +209,43 @@
   overflow: hidden;
 }
 
+/* Compact signup form styling */
+.signup-form {
+  gap: var(--space-4); /* Adequate gap between form rows */
+}
+
+.signup-form .form-row {
+  gap: var(--space-4); /* Gap between columns in each row */
+}
+
+.signup-form .form-group {
+  gap: var(--space-2); /* Better spacing between label and input */
+}
+
+.account-type-group {
+  max-width: 300px;
+  margin: var(--space-2) auto 0; /* Center and add top margin for spacing */
+  gap: var(--space-2); /* Better spacing between label and select */
+}
+
+/* Slightly reduce padding for signup to accommodate wider form */
+.auth-content.signup-content .auth-form-container {
+  padding: 2rem 2.5rem;
+}
+
+/* More compact header for signup */
+.signup-header {
+  margin-bottom: var(--space-4);
+}
+
+.signup-header h1 {
+  margin-bottom: var(--space-1);
+}
+
+.signup-header .account-type-info {
+  margin-top: var(--space-2);
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -209,6 +256,21 @@
 @media (min-width: 769px) {
   .form-row {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  
+  /* Ensure signup form uses available width on larger screens */
+  .signup-form .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6); /* Good spacing between columns on desktop */
+  }
+  
+  .signup-form {
+    gap: var(--space-6); /* More spacing between rows on desktop */
+  }
+  
+  .account-type-group {
+    max-width: 400px;
+    margin-top: var(--space-3); /* Extra spacing on desktop */
   }
 }
 
@@ -509,6 +571,20 @@
   .auth-form-container {
     padding: var(--space-4);
     margin: 0 var(--space-1);
+  }
+  
+  /* Make signup form single column on mobile */
+  .signup-form .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+  
+  .signup-form {
+    gap: var(--space-4); /* Maintain good spacing on mobile */
+  }
+  
+  .account-type-group {
+    max-width: 100%;
   }
 }
 

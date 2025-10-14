@@ -1,8 +1,10 @@
 import './styles/App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
+import { initializeAuth } from './utils/authGuard'
 
 import Landing from './components/pages/Landing'
 import Login from './components/pages/Login'
@@ -15,6 +17,11 @@ import Contact from './components/pages/Contact'
 import Help from './components/pages/Help'
 
 function App() {
+  useEffect(() => {
+    // Initialize auth guard on app start
+    initializeAuth();
+  }, []);
+
   return (
     <Router>
       <div className="App">

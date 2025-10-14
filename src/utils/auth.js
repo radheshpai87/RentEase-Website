@@ -43,7 +43,9 @@ export const authenticatedFetch = async (url, options = {}) => {
 // Check if server has restarted by comparing instance IDs
 export const checkServerStatus = async () => {
   try {
-    const response = await fetch('http://localhost:5000/api/server-status');
+    const response = await fetch('http://localhost:5000/api/server-status', {
+      timeout: 5000 // 5 second timeout
+    });
     
     if (!response.ok) {
       return { serverAvailable: false, serverRestarted: false };
@@ -66,6 +68,9 @@ export const checkServerStatus = async () => {
     };
   } catch (error) {
     console.error('Server status check failed:', error);
+    // Clear stored instance ID when server is not reachable
+    localStorage.removeItem('serverInstanceId');
+    lastKnownServerInstance = null;
     return { serverAvailable: false, serverRestarted: false };
   }
 };
@@ -90,14 +95,14 @@ export const checkAuthValidity = async () => {
   const { serverAvailable, serverRestarted } = await checkServerStatus();
   
   if (!serverAvailable) {
-    // Server is down, keep local auth for now
-    try {
-      const user = JSON.parse(userStr);
-      return { isAuthenticated: true, user, serverDown: true };
-    } catch {
-      clearAuth();
-      return { isAuthenticated: false, user: null };
-    }
+    // Server is down, clear authentication to prevent persistent login
+    clearAuth();
+    return { 
+      isAuthenticated: false, 
+      user: null, 
+      serverDown: true,
+      message: 'Server is not available. Please try again later.'
+    };
   }
   
   if (serverRestarted) {

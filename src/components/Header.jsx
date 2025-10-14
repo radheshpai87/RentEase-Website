@@ -12,6 +12,36 @@ function Header() {
 
   useEffect(() => {
     const checkAuth = async () => {
+      // First, do an immediate server availability check
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const response = await fetch('http://localhost:5000/api/server-status');
+          if (!response.ok) {
+            // Server is down, clear auth immediately
+            clearAuth();
+            setUser(null);
+            setNotification({
+              message: 'Server is not available. You have been logged out.',
+              type: 'warning',
+              isVisible: true
+            });
+            return;
+          }
+        } catch {
+          // Server is down, clear auth immediately
+          clearAuth();
+          setUser(null);
+          setNotification({
+            message: 'Server is not available. You have been logged out.',
+            type: 'warning',
+            isVisible: true
+          });
+          return;
+        }
+      }
+      
+      // Now do the full auth validity check
       const authResult = await checkAuthValidity()
       
       if (authResult.isAuthenticated) {
@@ -19,8 +49,8 @@ function Header() {
       } else {
         setUser(null)
         
-        // Show message if server restarted
-        if (authResult.serverRestarted && authResult.message) {
+        // Show message if server restarted or is down
+        if ((authResult.serverRestarted || authResult.serverDown) && authResult.message) {
           setNotification({
             message: authResult.message,
             type: 'warning',
