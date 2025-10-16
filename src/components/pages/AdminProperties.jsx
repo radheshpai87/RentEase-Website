@@ -58,7 +58,9 @@ function AdminProperties() {
       if (response.ok) {
         const data = await response.json()
         console.log('AdminProperties: Properties fetched:', data)
-        setProperties(Array.isArray(data) ? data : [])
+        // Handle both array response and object with properties field
+        const propertiesData = data.properties || (Array.isArray(data) ? data : [])
+        setProperties(Array.isArray(propertiesData) ? propertiesData : [])
       } else {
         console.error('AdminProperties: Properties fetch failed:', response.status)
         setProperties([]) // Set empty array on failure

@@ -196,14 +196,14 @@
 }
 
 /* Properties Grid */
-.properties-grid {
+.admin-properties .properties-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 2rem;
   margin-top: 1rem;
 }
 
-.no-properties {
+.admin-properties .no-properties {
   grid-column: 1 / -1;
   text-align: center;
   padding: 4rem 2rem;
@@ -214,7 +214,7 @@
   backdrop-filter: blur(10px);
 }
 
-.no-properties::before {
+.admin-properties .no-properties::before {
   content: '🏠';
   font-size: 4rem;
   display: block;
@@ -222,13 +222,13 @@
   opacity: 0.5;
 }
 
-.no-properties p {
+.admin-properties .no-properties p {
   font-size: 1.2rem;
   margin: 0;
 }
 
 /* Property Card */
-.property-card {
+.admin-properties .property-card {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 16px;
@@ -239,7 +239,7 @@
   position: relative;
 }
 
-.property-card::before {
+.admin-properties .property-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -249,31 +249,31 @@
   background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
 }
 
-.property-card:hover {
+.admin-properties .property-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   border-color: rgba(245, 158, 11, 0.3);
 }
 
-.property-image {
+.admin-properties .property-image {
   height: 220px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 }
 
-.property-image img {
+.admin-properties .property-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.property-card:hover .property-image img {
+.admin-properties .property-card:hover .property-image img {
   transform: scale(1.05);
 }
 
-.placeholder-image {
+.admin-properties .placeholder-image {
   width: 100%;
   height: 100%;
   display: flex;
@@ -285,14 +285,14 @@
   position: relative;
 }
 
-.placeholder-image::before {
+.admin-properties .placeholder-image::before {
   content: '🏠';
   font-size: 3rem;
   opacity: 0.3;
   position: absolute;
 }
 
-.property-status {
+.admin-properties .property-status {
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -305,7 +305,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.featured-badge {
+.admin-properties .featured-badge {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -324,11 +324,11 @@
   50% { transform: scale(1.05); }
 }
 
-.property-info {
+.admin-properties .property-info {
   padding: 1.5rem;
 }
 
-.property-info h3 {
+.admin-properties .property-info h3 {
   font-size: 1.4rem;
   margin: 0 0 0.5rem 0;
   color: var(--text-color);
@@ -336,7 +336,7 @@
   line-height: 1.3;
 }
 
-.property-type {
+.admin-properties .property-type {
   display: inline-block;
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
   color: var(--primary-color);
@@ -349,7 +349,7 @@
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.property-price {
+.admin-properties .property-price {
   font-size: 1.5rem;
   font-weight: 700;
   background: linear-gradient(135deg, var(--primary-color) 0%, #d97706 100%);
@@ -359,7 +359,7 @@
   margin-bottom: 0.5rem;
 }
 
-.property-location {
+.admin-properties .property-location {
   color: var(--text-secondary);
   margin-bottom: 0.75rem;
   font-size: 0.95rem;
@@ -368,12 +368,12 @@
   gap: 0.5rem;
 }
 
-.property-location::before {
+.admin-properties .property-location::before {
   content: '📍';
   font-size: 0.9rem;
 }
 
-.property-details {
+.admin-properties .property-details {
   color: var(--text-secondary);
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
@@ -382,17 +382,17 @@
   gap: 1rem;
 }
 
-.property-details::before {
+.admin-properties .property-details::before {
   content: '🏠';
   font-size: 0.9rem;
 }
 
-.property-actions {
+.admin-properties .property-actions {
   display: flex;
   gap: 0.75rem;
 }
 
-.property-actions .btn {
+.admin-properties .property-actions .btn {
   flex: 1;
   padding: 0.5rem 1rem;
   font-size: 0.8rem;
@@ -671,16 +671,16 @@
     text-align: center;
   }
   
-  .admin-header h2 {
+  .admin-properties .admin-header h2 {
     font-size: 1.8rem;
   }
   
-  .properties-grid {
+  .admin-properties .properties-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   
-  .filters {
+  .admin-properties .filters {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
@@ -705,11 +705,11 @@
 }
 
 @media (max-width: 480px) {
-  .admin-header {
+  .admin-properties .admin-header {
     padding: 1rem;
   }
   
-  .admin-header h2 {
+  .admin-properties .admin-header h2 {
     font-size: 1.5rem;
   }
   
@@ -721,15 +721,15 @@
     padding: 1.5rem;
   }
   
-  .property-info {
+  .admin-properties .property-info {
     padding: 1rem;
   }
   
-  .property-actions {
+  .admin-properties .property-actions {
     flex-direction: column;
   }
   
-  .property-actions .btn {
+  .admin-properties .property-actions .btn {
     width: 100%;
   }
 }
