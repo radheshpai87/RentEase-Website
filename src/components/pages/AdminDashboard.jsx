@@ -130,18 +130,6 @@ function AdminDashboard() {
             Inquiries
           </button>
           <button 
-            className={`tab ${activeTab === 'locations' ? 'active' : ''}`}
-            onClick={() => setActiveTab('locations')}
-          >
-            Locations
-          </button>
-          <button 
-            className={`tab ${activeTab === 'categories' ? 'active' : ''}`}
-            onClick={() => setActiveTab('categories')}
-          >
-            Categories
-          </button>
-          <button 
             className={`tab ${activeTab === 'cms' ? 'active' : ''}`}
             onClick={() => setActiveTab('cms')}
           >
