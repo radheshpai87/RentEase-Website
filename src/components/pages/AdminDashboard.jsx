@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AdminProperties from './AdminProperties'
+import AdminInquiries from './AdminInquiries'
+import AdminCMS from './AdminCMS'
 import '../../styles/AdminDashboard.css'
 
 function AdminDashboard() {
@@ -295,8 +297,7 @@ function AdminDashboard() {
           )}
 
           {activeTab === 'inquiries' && (
-            <div className="tab-content">
-            </div>
+            <AdminInquiries />
           )}
 
           {activeTab === 'locations' && (
@@ -310,8 +311,7 @@ function AdminDashboard() {
           )}
 
           {activeTab === 'cms' && (
-            <div className="tab-content">
-            </div>
+            <AdminCMS />
           )}
         </div>
       </div>
