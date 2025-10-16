@@ -73,7 +73,7 @@ function Contact() {
     {
       icon: '📍',
       title: 'Office',
-      details: ['Sector 18, Cyber City', 'Gurgaon, Haryana 122015']
+      details: ['Kankanady Gate, Kankanady-Pumpwell Road', 'Mangalore, Karnataka 575002']
     },
     {
       icon: '⏰',
@@ -214,16 +214,6 @@ function Contact() {
                   ))}
                 </div>
               ))}
-            </div>
-
-            <div className="map-section">
-              <h3>Find Us</h3>
-              <div className="map-placeholder">
-                <div className="map-content">
-                  <p>📍 Interactive Map</p>
-                  <p>123 Business District<br />New York, NY 10001</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
