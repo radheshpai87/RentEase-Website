@@ -39,10 +39,11 @@ function Help() {
     ],
     'finding-properties': [
       {
-        id: 4,
-        title: 'Using search filters effectively',
-        content: 'Use filters to narrow down properties by price, location, bedrooms, and amenities. Save your search criteria to get notifications when new matching properties are listed.',
-        tags: ['search', 'filters', 'notifications']
+        id: 3,
+        question: 'How do I search for properties?',
+        answer: 'Our powerful search lets you find your perfect property',
+        content: 'Use filters to narrow down properties by price, location, BHK, and amenities. Save your search criteria to get notifications when new matching properties are listed.',
+        category: 'Using the Platform'
       },
       {
         id: 5,
@@ -182,7 +183,7 @@ function Help() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
-            <button className="search-btn">🔍</button>
+            <button className="search-btn">Search</button>
           </div>
         </div>
       </div>

@@ -244,15 +244,15 @@ function Properties() {
               />
             </div>
 
-            {/* Bedrooms & Bathrooms */}
+            {/* BHK & Bathrooms */}
             <div className="filter-item">
-              <label>Bedrooms</label>
+              <label>BHK</label>
               <select name="bedrooms" value={filters.bedrooms} onChange={handleFilterChange}>
                 <option value="">Any</option>
-                <option value="1">1+</option>
-                <option value="2">2+</option>
-                <option value="3">3+</option>
-                <option value="4">4+</option>
+                <option value="1">1 BHK</option>
+                <option value="2">2 BHK</option>
+                <option value="3">3 BHK</option>
+                <option value="4">4+ BHK</option>
               </select>
             </div>
 
@@ -384,7 +384,7 @@ function Properties() {
                     <div className="card-meta">
                       <span className="meta-item">
                         <span className="icon">🛏️</span>
-                        {property.bedrooms} Bed
+                        {property.bedrooms} BHK
                       </span>
                       <span className="meta-item">
                         <span className="icon">🚿</span>

@@ -280,8 +280,8 @@ function PropertyDetail() {
                 <div className="detail-item">
                   <span className="detail-icon">🛏️</span>
                   <div>
-                    <span className="detail-label">Bedrooms</span>
-                    <span className="detail-value">{property.bedrooms}</span>
+                    <span className="detail-label">BHK</span>
+                    <span className="detail-value">{property.bedrooms} BHK</span>
                   </div>
                 </div>
 

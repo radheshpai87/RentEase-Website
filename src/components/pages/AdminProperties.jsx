@@ -487,7 +487,7 @@ function AdminProperties() {
                   {property.location?.city}, {property.location?.state}
                 </p>
                 <p className="property-details">
-                  {property.bedrooms} bed • {property.bathrooms} bath • {property.area} sqft
+                  {property.bedrooms} BHK • {property.bathrooms} bath • {property.area} sqft
                 </p>
               </div>
               
@@ -642,13 +642,14 @@ function AdminProperties() {
                     />
                   </div>
                   <div className="form-group">
-                    <label>Bedrooms *</label>
+                    <label>BHK *</label>
                     <input
                       type="number"
                       required
                       min="0"
                       value={formData.bedrooms}
                       onChange={(e) => setFormData({ ...formData, bedrooms: parseInt(e.target.value) || 1 })}
+                      placeholder="e.g., 2 for 2 BHK"
                     />
                   </div>
                   <div className="form-group">
